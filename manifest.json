@@ -15,7 +15,14 @@
     "action": {
         "default_popup": "popup.html"
     },
-    "permissions": ["tabs"]
+    "permissions": ["tabs"],
+    "content_scripts": [
+        {
+             "matches": ["https://leetcode.com/problems/*"],
+             "js": ["content.js"]
+        }
+    ]
+    
     
 
   }
