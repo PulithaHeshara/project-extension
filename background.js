@@ -1,6 +1,17 @@
 const API_KEY = "AIzaSyAFQbmuwy0yFxAgct2kiNIRtGkj5rbnXFo"
 
 async function generateHintWithGemini(questionText) {
+  const prompt = `Based on the following LeetCode problem and the user's current approach, give a concise, helpful hint (1–2 sentences) that nudges them in the right direction without giving away the full solution.
+
+Problem: 
+${questionText.question}
+Current approach or code:
+${questionText.working}
+
+Focus on guiding their thinking or helping them correct misconceptions.`
+
+ console.log(prompt);
+
   const response = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
     {
@@ -11,7 +22,7 @@ async function generateHintWithGemini(questionText) {
       body: JSON.stringify({
         contents: [
           {
-            parts: [{ text: `Give a helpful hint around one to two sentences for the following LeetCode problem:\n\n${questionText}` }],
+            parts: [{ text: prompt}],
             role: "user"
           }
         ]

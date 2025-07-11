@@ -3,14 +3,22 @@ const getLeetCodeQuestion = ()=>{
     return description ? description.innerText : "Description not found";
 }
 
+const getCurrentWork = ()=>{
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    const lineDivs = document.querySelectorAll('.view-lines .view-line');
+    if (!lineDivs.length) return "User havent start coding yet.";
+  
+    const codeLines = Array.from(lineDivs).map(lineDiv => lineDiv.innerText);
+    return codeLines.join("\n");
+}
+
+/*chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type === "getQuestion") {
       const data = getLeetCodeQuestion();
         console.log(data);
       sendResponse({text : data});
     }
-});
+}); */
 
 const add_hint_btn = ()=>{
 
@@ -81,10 +89,12 @@ const add_hint_btn = ()=>{
       });
 
      const question = getLeetCodeQuestion()
+     const currentwroking = getCurrentWork();
 
         chrome.runtime.sendMessage({
             type :"getHints",
-            value :  question
+            value :  {question : question, 
+                    working : currentwroking}
         },(response)=>{
             hintPopup.innerText = response.text.candidates[0].content.parts[0].text;
         })

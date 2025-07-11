@@ -1,4 +1,4 @@
-const URL_leetcode = "https://leetcode.com/problems/"
+/*const URL_leetcode = "https://leetcode.com/problems/"
 
 
 
@@ -25,6 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-
+*/
 
 
