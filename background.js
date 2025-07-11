@@ -11,7 +11,7 @@ async function generateHintWithGemini(questionText) {
       body: JSON.stringify({
         contents: [
           {
-            parts: [{ text: `Give a helpful hint for the following LeetCode problem:\n\n${questionText}` }],
+            parts: [{ text: `Give a helpful hint around one to two sentences for the following LeetCode problem:\n\n${questionText}` }],
             role: "user"
           }
         ]
@@ -36,4 +36,13 @@ chrome.runtime.onMessage.addListener( (request, sender, sendResponse) => {
     }
 });
 
+const URL_leetcode = "https://leetcode.com/problems/"
+
+chrome.tabs.onUpdated.addListener((tabId,tab)=>{
+    if(tab.url && tab.url.includes(URL_leetcode)){
+        chrome.tabs.sendMessage(tabId,{
+            type: "NEW_QUESTION"
+        })
+    }
+})
 
