@@ -63,7 +63,7 @@ const add_hint_btn = ()=>{
         position: absolute;
         top: 75px;
         margin-inline: 10px;
-        
+        color: white;
         background: #6200ea;
         border: 1px solid #ccc;
         border-radius: 10px;
@@ -87,6 +87,15 @@ const add_hint_btn = ()=>{
         hintPopup.style.opacity = "1";
         hintPopup.style.transform = "translateY(0)";
       });
+
+      document.addEventListener('click',(event)=>{
+        if(hintPopup && !hintPopup.contains(event.target) && event.target != hintButton){
+            hintPopup.remove();
+            hintPopup = null;
+            console.log('\nhi\n');
+            return;
+        }
+      })
 
      const question = getLeetCodeQuestion()
      const currentwroking = getCurrentWork();
